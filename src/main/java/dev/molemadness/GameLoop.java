@@ -7,13 +7,15 @@ public class GameLoop extends AnimationTimer {
     private final GameWorld gameWorld;
     private final GameRenderer gameRenderer;
 
-    private final Runnable onGameOver;
+    private final Runnable onPulse;
+
     private long lastTime = 0;
 
-    public GameLoop(GameWorld gameWorld, GameRenderer gameRenderer, Runnable onGameOver) {
-        this.gameWorld = gameWorld;
+    public GameLoop(Runnable onPulse, GameRenderer gameRenderer, GameWorld gameWorld) {
+        this.onPulse = onPulse;
+
         this.gameRenderer = gameRenderer;
-        this.onGameOver = onGameOver;
+        this.gameWorld = gameWorld;
     }
 
     @Override
@@ -26,6 +28,9 @@ public class GameLoop extends AnimationTimer {
         double delta = (currentTime - lastTime) / 1_000_000_000.0;
         lastTime = currentTime;
 
+        // Update Labels, check for game over
+        onPulse.run();
+
         update(delta);
         render(delta);
     }
@@ -35,7 +40,7 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void render(double delta) {
-        gameRenderer.render(gameWorld.getAllMoles());
+        gameRenderer.render(gameWorld.getVisibleMoles());
     }
 
 }
