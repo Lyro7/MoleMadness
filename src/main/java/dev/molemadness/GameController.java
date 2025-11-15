@@ -1,60 +1,73 @@
 package dev.molemadness;
 
+import javafx.geometry.Point2D;
+import javafx.scene.canvas.Canvas;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameController {
 
+    private final GameRenderer gameRenderer;
     private final GameWorld gameWorld;
-    private GameLoop gameLoop;
+    private final GameLoop gameLoop;
 
-    private enum GameState { RUNNING, PAUSED, GAME_OVER }
-    private GameState gameState;
+    private final Runnable onUi;
+    private final Runnable onGameOver;
 
-    private Runnable onGameOver;
+    public GameController(Runnable onUi, Runnable onGameOver, Canvas canvas, String difficulty) {
+        gameRenderer = new GameRenderer(canvas);
+        gameWorld = new GameWorld(difficulty);
+        gameLoop = new GameLoop(this::pulse, gameRenderer, gameWorld);
 
-    public GameController(String difficulty) {
-        gameWorld = new GameWorld(difficulty);;
+        this.onUi = onUi;
+        this.onGameOver = onGameOver;
+
+        // Update mole positions to virtual space
+        nativeToVirtual();
+        initMouseListener(canvas);
     }
 
-    public void start(GameRenderer gameRenderer) {
-        if (gameLoop != null) {
-            return;
-        }
-        gameState = GameState.RUNNING;
-        gameLoop = new GameLoop(gameWorld, gameRenderer, this::handleGameOver);
-        gameLoop.start();
+    private void initMouseListener(Canvas canvas) {
+        canvas.setOnMouseClicked(e  -> {
+            double x = e.getX();
+            double y = e.getY();
+            gameWorld.manageHit(x, y);
+        });
     }
 
-    private void stop() {
-        gameState = GameState.GAME_OVER;
-        gameLoop.stop();
-    }
+    public void pulse() {
+        onUi.run();
 
-    private void pause() {
-        if (gameState == GameState.RUNNING) {
-            gameState = GameState.PAUSED;
+        if (gameWorld.getLives() <= 0) {
             gameLoop.stop();
-        }
-    }
-
-    private void resume() {
-        if (gameState == GameState.PAUSED) {
-            gameState = GameState.RUNNING;
-            gameLoop.start();
-        }
-    }
-
-    private void handleGameOver() {
-        stop();
-        if (onGameOver != null) {
             onGameOver.run();
         }
     }
 
-    public void setOnGameOver(Runnable onGameOver) {
-        this.onGameOver = onGameOver;
+    public void start() {
+        gameLoop.start();
     }
 
-    public GameWorld getGameWorld() {
-        return gameWorld;
+    private void nativeToVirtual() {
+        List<Point2D> nativeHoles = gameWorld.getHoles();
+        List<Point2D> virtualHoles = new ArrayList<>();
+
+        for (Point2D nativeHole : nativeHoles) {
+            Point2D virtualHole = gameRenderer.nativeToVirtual(nativeHole);
+            virtualHoles.add(virtualHole);
+        }
+
+        gameWorld.setHoles(virtualHoles);
     }
+
+    public int getScore() {
+        return gameWorld.getScore();
+    }
+
+    public int getLives() {
+        return gameWorld.getLives();
+    }
+
 
 }
