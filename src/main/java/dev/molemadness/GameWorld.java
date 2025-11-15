@@ -28,6 +28,9 @@ public class GameWorld {
     private double mVisible;
     private double mInvisible;
 
+    private int lives = 4;
+    private int score;
+
     public GameWorld(String difficulty) {
         this.difficulty = difficulty;
 
@@ -77,7 +80,7 @@ public class GameWorld {
                 this.mInvisible = 1.8;
                 this.maxVisibleMoles = 3;
                 this.spawnMin = 0.20;
-                this.spawnMax = 0.60;
+                this.spawnMax = 0.65;
                 break;
             case "Hard":
                 this.mVisible = 1;
@@ -136,23 +139,37 @@ public class GameWorld {
                 break;
             case INVISIBLE:
                 visibleMoles.remove(mole);
-                Point2D nextPos = chooseFreeHole();
-                if (nextPos != null) {
-                    mole.setPosition(nextPos);
-                }
-                break;
-            case HIT:
-                visibleMoles.remove(mole);
                 allMoles.remove(mole);
+                lives--;
+                break;
         }
     }
 
-    public List<Mole> getAllMoles() {
-        return allMoles;
+    public void manageHit(double x, double y) {
+        for (int j = visibleMoles.size() - 1; j >= 0; j--) {
+            Mole mole = visibleMoles.get(j);
+            if (mole.contains(x, y)) {
+                visibleMoles.remove(mole);
+                allMoles.remove(mole);
+                score++;
+            }
+        }
+    }
+
+    public List<Mole> getVisibleMoles() {
+        return visibleMoles;
     }
 
     public void setHoles(List<Point2D> holes) {
         this.holes = holes;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public List<Point2D> getHoles() {
