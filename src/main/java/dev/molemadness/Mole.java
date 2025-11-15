@@ -7,20 +7,18 @@ import java.util.Objects;
 
 public class Mole {
 
-    private Point2D position;
-    private float radius;
+    private final Point2D position;
+    private final float radius;
 
     private final double maxVisibleTime;
     private final double maxInvisibleTime;
-    private final double maxHitTime;
 
     private double tVisible;
     private double tInvisible;
-    private double tHit;
 
     private boolean switched;
 
-    public enum MoleState { VISIBLE, INVISIBLE, HIT }
+    public enum MoleState { VISIBLE, INVISIBLE }
     private MoleState moleState;
 
     private static final Image IMAGE = new Image(Objects.requireNonNull(
@@ -30,21 +28,24 @@ public class Mole {
 
     public Mole(Point2D pos, double maxVisibleTime, double maxInvisibleTime) {
         this.position = pos;
+        this.radius = 70;
         this.maxVisibleTime = maxVisibleTime;
         this.maxInvisibleTime = maxInvisibleTime;
-        this.maxHitTime = 1;
         this.switched = false;
+        this.tInvisible = Math.random() * maxInvisibleTime;
         this.moleState = MoleState.INVISIBLE;
-        // Load every mole with same sprite
         this.sprite = IMAGE;
     }
 
     public void update(double delta) {
+        switched = false;
         switch (moleState) {
             case VISIBLE:
                 tVisible += delta;
                 if (tVisible >= maxVisibleTime) {
                     hide();
+                    tVisible = 0;
+                    tInvisible = 0;
                     switched = true;
                 }
                 break;
@@ -52,14 +53,11 @@ public class Mole {
                 tInvisible += delta;
                 if (tInvisible >= maxInvisibleTime) {
                     show();
+                    tVisible = 0;
+                    tInvisible = 0;
                     switched = true;
                 }
-            case HIT:
-                tHit += delta;
-                if (tHit >= maxHitTime) {
-                    hit();
-                    switched = true;
-                }
+                break;
         }
     }
 
@@ -71,16 +69,8 @@ public class Mole {
         moleState = MoleState.INVISIBLE;
     }
 
-    private void hit() {
-        moleState = MoleState.HIT;
-    }
-
     public Point2D getPosition() {
         return position;
-    }
-
-    public void setPosition(Point2D position) {
-        this.position = position;
     }
 
     public MoleState getMoleState() {
@@ -93,6 +83,13 @@ public class Mole {
 
     public boolean hasSwitched() {
         return switched;
+    }
+
+    /* Bounding box of mole is a circle */
+    public boolean contains(double x, double y) {
+        double off = 25;
+        // Point-in-circle test
+        return Math.pow((x - position.getX()), 2) + Math.pow(y - (position.getY() + off), 2) < Math.pow(radius, 2);
     }
 
 }
