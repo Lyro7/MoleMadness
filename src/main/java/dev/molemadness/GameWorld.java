@@ -62,7 +62,7 @@ public class GameWorld {
     }
 
     private void initializeDifficulty() {
-        // If no difficulty is selected, choose middle one
+        // If no difficulty is selected, choose easy one
         if (difficulty == null) {
             difficulty = "Easy";
         }

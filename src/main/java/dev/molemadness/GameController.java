@@ -23,7 +23,7 @@ public class GameController {
         this.onUi = onUi;
         this.onGameOver = onGameOver;
 
-        // Update mole positions to virtual space
+        // Update hole positions to virtual space
         nativeToVirtual();
         initMouseListener(canvas);
     }
