@@ -1,6 +1,7 @@
 package dev.molemadness;
 
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -16,8 +17,8 @@ public class GameRenderer {
     private static final double HOLE_RADIUS = 60;
     private static final double MOLE_SCALE = 2.5;
 
-    public GameRenderer(GraphicsContext gc) {
-        this.gc = gc;
+    public GameRenderer(Canvas canvas) {
+        this.gc = canvas.getGraphicsContext2D();
         this.background = new Image(Objects.requireNonNull(
                 getClass().getResource("/assets/background.png")).toExternalForm());
     }
