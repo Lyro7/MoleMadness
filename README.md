@@ -49,9 +49,6 @@ They are not yet perfectly tuned, so the game can be a bit too hard or too easy 
 Requirements:
 - JDK 23 (e.g. Eclipse Temurin 23)
 
+Steps:
 1. Clone this repository.
-2. In the project root, run:
-
-   ```bash
-   ./gradlew run
-   
+2. In the project root, run: `./gradlew run`.
