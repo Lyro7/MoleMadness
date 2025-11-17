@@ -11,7 +11,6 @@ You hit moles by clicking on them before they disappear. The game offers three d
 - Fixed virtual resolution **1280x720** with automatic scaling to the window size
 - Click detection using the standard equation of a circle for the mole hitbox
 - Clean separation of responsibilities:
-
   - `GameWorld` – game logic (spawning, timing, difficulty, lives, score)
   - `GameRenderer` – drawing background and moles at fixed positions
   - `GameController` – connects world, rendering and input
