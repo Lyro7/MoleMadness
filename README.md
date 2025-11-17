@@ -44,7 +44,7 @@ To run the project you need:
 
 - A JDK (e.g. Eclipse Temurin 23 or any compatible Java 23 JDK)
 
-JavaFX is managed via Gradle dependencies, so no separate JavaFX installation is
+JavaFX is managed via Gradle dependencies, so no separate JavaFX installation is needed.
 
 ### Run
 
