@@ -25,7 +25,7 @@ You hit moles by clicking on them before they disappear. The game offers three d
 
 ## Difficulty
 
-The difficulty parameter constants (time to hit the mole before it gets invisible, spawn rate, etc.) are defined in the `GameWorld` class.  
+The difficulty parameter constants (time to hit the mole before it becomes invisible, spawn rate, etc.) are defined in the `GameWorld` class.  
 They are not yet perfectly tuned, so the game can be a bit too hard or too easy in some situations.
 
 - **Easy** – longer visible time, slower spawn
@@ -46,7 +46,20 @@ To run the project you need:
 
 JavaFX is managed via Gradle dependencies, so no separate JavaFX installation is needed.
 
-### Run
+### Run (prebuilt Windows version)
 
+1. Go to the [Releases](https://github.com/Lyro7/MoleMadness/releases)
+2. Download `MoleMadness-windows.zip`.
+3. Extract the ZIP and run `MoleMadness.bat` from the `bin` folder.
 
+## Run from source
 
+Requirements:
+- JDK 23 (e.g. Eclipse Temurin 23)
+
+1. Clone this repository.
+2. In the project root, run:
+
+   ```bash
+   ./gradlew run
+   
