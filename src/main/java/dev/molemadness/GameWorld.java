@@ -84,10 +84,10 @@ public class GameWorld {
                 break;
             case "Hard":
                 this.mVisible = 1.2;
-                this.mInvisible = 2.0;
-                this.maxVisibleMoles = 4;
+                this.mInvisible = 1.5;
+                this.maxVisibleMoles = 3;
                 this.spawnMin = 0.20;
-                this.spawnMax = 0.55;
+                this.spawnMax = 0.60;
                 break;
         }
     }
