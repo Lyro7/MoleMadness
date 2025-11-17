@@ -38,15 +38,7 @@ They are not yet perfectly tuned, so the game can be a bit too hard or too easy 
 - JavaFX (Render Engine)
 - Gradle
 
-## Requirements
-
-To run the project you need:
-
-- A JDK (e.g. Eclipse Temurin 23 or any compatible Java 23 JDK)
-
-JavaFX is managed via Gradle dependencies, so no separate JavaFX installation is needed.
-
-### Run (prebuilt Windows version)
+## Run (prebuilt Windows version)
 
 1. Go to the [Releases](https://github.com/Lyro7/MoleMadness/releases)
 2. Download `MoleMadness-windows.zip`.
