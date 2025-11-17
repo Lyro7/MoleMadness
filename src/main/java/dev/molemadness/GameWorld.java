@@ -83,11 +83,11 @@ public class GameWorld {
                 this.spawnMax = 0.65;
                 break;
             case "Hard":
-                this.mVisible = 1;
-                this.mInvisible = 1.5;
-                this.maxVisibleMoles = 5;
-                this.spawnMin = 0.15;
-                this.spawnMax = 0.40;
+                this.mVisible = 1.2;
+                this.mInvisible = 2.0;
+                this.maxVisibleMoles = 4;
+                this.spawnMin = 0.20;
+                this.spawnMax = 0.55;
                 break;
         }
     }
@@ -110,7 +110,7 @@ public class GameWorld {
 
     private Point2D chooseFreeHole() {
         Set<Point2D> occupied = new HashSet<>();
-        for (Mole mole : visibleMoles) {
+        for (Mole mole : allMoles) {
             occupied.add(mole.getPosition());
         }
         List<Point2D> candidates = new ArrayList<>();
