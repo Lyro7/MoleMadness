@@ -37,7 +37,8 @@ They are not yet perfectly tuned, so the game can be a bit too hard or too easy 
 - JavaFX (Render Engine)
 - Gradle
 
-## Run (prebuilt Windows version)
+## Run (prebuilt version)
+The prebuilt version is currently only available for Windows.
 
 1. Go to the [Releases](https://github.com/Lyro7/MoleMadness/releases)
 2. Download `MoleMadness-windows.zip`.
