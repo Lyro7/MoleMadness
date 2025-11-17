@@ -69,25 +69,25 @@ public class GameWorld {
 
         switch (difficulty) {
             case "Easy":
-                this.mVisible = 2;
-                this.mInvisible = 3;
-                this.maxVisibleMoles = 2;
-                this.spawnMin = 0.45;
-                this.spawnMax = 1;
+                this.mVisible = 2.0;
+                this.mInvisible = 3.0;
+                this.maxVisibleMoles = 3;
+                this.spawnMin = 0.40;
+                this.spawnMax = 0.90;
                 break;
             case "Middle":
                 this.mVisible = 1.4;
-                this.mInvisible = 1.8;
+                this.mInvisible = 1.7;
                 this.maxVisibleMoles = 3;
-                this.spawnMin = 0.20;
-                this.spawnMax = 0.65;
+                this.spawnMin = 0.25;
+                this.spawnMax = 0.60;
                 break;
             case "Hard":
-                this.mVisible = 1.2;
-                this.mInvisible = 1.5;
+                this.mVisible = 1.3;
+                this.mInvisible = 1.6;
                 this.maxVisibleMoles = 3;
-                this.spawnMin = 0.20;
-                this.spawnMax = 0.60;
+                this.spawnMin = 0.2;
+                this.spawnMax = 0.5;
                 break;
         }
     }
